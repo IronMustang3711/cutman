@@ -7,7 +7,24 @@
 
 #include <WPILib.h>
 
-struct Robot :  TimedRobot {
+struct Robot : TimedRobot {
+
+    Robot(){
+    }
+
+	void RobotInit() override {}
+	void DisabledInit() override {}
+	void AutonomousInit() override {}
+	void TeleopInit() override {}
+	
+
+	void RobotPeriodic() override {}
+	void DisabledPeriodic() override {}
+	void AutonomousPeriodic() override {}
+	void TeleopPeriodic() override {}
+	void TestPeriodic() override {}
+
+
 
 };
 
