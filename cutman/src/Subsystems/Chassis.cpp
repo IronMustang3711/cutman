@@ -4,7 +4,7 @@
 
 #include "Chassis.h"
 
-Chassis::Chassis(DifferentialDrive &_drive) : frc::Subsystem{"chassis"},drive{_drive}{
+Chassis::Chassis(DifferentialDrive &_drive) : frc::Subsystem{"chassis"},drive{_drive}
+{
     AddChild(_drive);
-
 }

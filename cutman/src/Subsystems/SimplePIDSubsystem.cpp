@@ -17,10 +17,13 @@ void SimplePIDSubsystem::UsePIDOutput(double output) {
 
 SimplePIDSubsystem::SimplePIDSubsystem(const llvm::Twine &name, double p, double i, double d, double f, double period,
                                        frc::PIDOutput &_motor, frc::PIDSource &_encoder)
-: frc::PIDSubsystem(name,p,i,d,f,period), motor{_motor},encoder{_encoder}{
+: frc::PIDSubsystem(name,p,i,d,f,period), motor{_motor},encoder{_encoder}
+{
 
-    AddChild((Sendable*)&motor);
-    AddChild(dynamic_cast<Sendable*>(&encoder));
+    AddChild(dynamic_cast<Sendable&>(motor));
+    AddChild(dynamic_cast<Sendable&>(encoder));
+
+    AddChild(GetPIDController());
 
 }
 

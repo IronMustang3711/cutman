@@ -5,7 +5,10 @@
 #include "Winch.h"
 
 Winch::Winch(SpeedController &_motor)
-        : frc::Subsystem{"Winch"}, motor{_motor} {}
+        : frc::Subsystem{"Winch"}, motor{_motor}
+{
+   AddChild(dynamic_cast<Sendable&>(motor));
+}
 
 void Winch::driveWinch(double output) {
     motor.Set(output);
