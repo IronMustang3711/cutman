@@ -7,7 +7,7 @@
 class Winch : public frc::Subsystem {
 
 public:
-    Winch(SpeedController& motor);
+    explicit Winch(SpeedController& motor);
 
     void driveWinch(double output);
 

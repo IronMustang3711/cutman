@@ -8,7 +8,7 @@
 
 class Chassis : public Subsystem {
 public:
-    Chassis(DifferentialDrive& drive);
+    explicit Chassis(DifferentialDrive& drive);
 
 private:
     frc::DifferentialDrive& drive;
