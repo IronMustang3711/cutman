@@ -18,4 +18,5 @@ Bucket::Bucket(double p, double i, double d, double f, frc::PIDOutput &_motor, f
 {
     SetAbsoluteTolerance(5.0);
     GetPIDController()->SetContinuous(false);
+    GetPIDController()->SetName("Bucket PID controller");
 }
