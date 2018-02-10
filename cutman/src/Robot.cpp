@@ -3,11 +3,13 @@
 #include <WPILib.h>
 #include "RobotMap.h"
 #include "Subsystems/Bucket.h"
+#include "Subsystems/Clamp.h"
 struct Robot : TimedRobot {
 
 	RobotMap robotMap;
 
     Bucket bucket{robotMap.bucketMotor,robotMap.bucketEncoder};
+    Clamp clamp{robotMap.clampMotor,robotMap.clampEncoder};
 
     Robot(){
     }
