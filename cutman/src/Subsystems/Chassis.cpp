@@ -5,11 +5,11 @@
 #include "Chassis.h"
 
 constexpr inline
-double clamp(double value,double min,double max){
+double clamp(double value,double min = -1.0,double max = 1.0){
    return value < min ? min : value > max ? max : value;
 }
-constexpr inline
-double clamp(double value){ return clamp(value,-1.0,1.0);}
+//constexpr inline
+//double clamp(double value){ return clamp(value,-1.0,1.0);}
 
 
 template<typename Derived>
@@ -46,27 +46,68 @@ void DifferentialDriveLite<Derived>::arcadeDrive(double speed, double rotation) 
         }
     }
 
-    leftMotorOutput = clamp(leftMotorOutput) * maxOutput::value;
-    rightMotorOutput = -clamp(rightMotorOutput) * maxOutput::value;
+    leftMotorOutput = clamp(leftMotorOutput) * maxOut;
+    rightMotorOutput = -clamp(rightMotorOutput) * maxOut;
 
     static_cast<Derived*>(this)->setLeftOutput(leftMotorOutput);
     static_cast<Derived*>(this)->setRightOutput(rightMotorOutput);
 }
 
 template<typename Derived>
-void DifferentialDriveLite<Derived>::curvatureDrive(double fwdSpeed, double rotation, bool isQuickTurn) {
+void DifferentialDriveLite<Derived>::curvatureDrive(double speed, double rotation, bool isQuickTurn) {
+//    speed = clamp(speed);
+//
+//    rotation = clamp(rotation);
+//
+//    double angularPower;
+//    bool overPower;
+//
+//    if (isQuickTurn) {
+//        if (std::abs(speed) < quickStopThreshold) {
+//            quickStopAccumulator = (1 - quickStopAlpha) * quickStopAccumulator +
+//                                   quickStopAlpha * clamp(rotation) * 2;
+//        }
+//        overPower = true;
+//        angularPower = rotation;
+//    } else {
+//        overPower = false;
+//        angularPower = std::abs(speed) * rotation - quickStopAccumulator;
+//
+//        if (quickStopAccumulator > 1) {
+//            quickStopAccumulator -= 1;
+//        } else if (quickStopAccumulator < -1) {
+//            quickStopAccumulator += 1;
+//        } else {
+//            quickStopAccumulator = 0.0;
+//        }
+//    }
+//
+//    double leftMotorOutput = speed + angularPower;
+//    double rightMotorOutput = speed - angularPower;
+//
+//    // If rotation is overpowered, reduce both outputs to within acceptable range
+//    if (overPower) {
+//        if (leftMotorOutput > 1.0) {
+//            rightMotorOutput -= leftMotorOutput - 1.0;
+//            leftMotorOutput = 1.0;
+//        } else if (rightMotorOutput > 1.0) {
+//            leftMotorOutput -= rightMotorOutput - 1.0;
+//            rightMotorOutput = 1.0;
+//        } else if (leftMotorOutput < -1.0) {
+//            rightMotorOutput -= leftMotorOutput + 1.0;
+//            leftMotorOutput = -1.0;
+//        } else if (rightMotorOutput < -1.0) {
+//            leftMotorOutput -= rightMotorOutput + 1.0;
+//            rightMotorOutput = -1.0;
+//        }
+//    }
+//
+//    leftMotorOutput  *= maxOutput;
+//    rightMotorOutput *= -maxOutput;
 
 }
 
-//template<typename Derived>
-//void DifferentialDriveLite<Derived>::setLeftOutput(double output) {
-//
-//}
-//
-//template<typename Derived>
-//void DifferentialDriveLite<Derived>::setRightOutput(double output) {
-//
-//}
+
 
 
 Chassis &Chassis::getInstance() {
