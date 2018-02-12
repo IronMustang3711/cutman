@@ -11,6 +11,64 @@ double clamp(double value,double min,double max){
 constexpr inline
 double clamp(double value){ return clamp(value,-1.0,1.0);}
 
+
+template<typename Derived>
+void DifferentialDriveLite<Derived>::arcadeDrive(double speed, double rotation) {
+    speed = clamp(speed);
+
+    rotation = clamp(rotation);
+
+
+
+    double leftMotorOutput;
+    double rightMotorOutput;
+
+    double maxInput =
+            std::copysign(std::max(std::abs(speed), std::abs(rotation)), speed);
+
+    if (speed >= 0.0) {
+        // First quadrant, else second quadrant
+        if (rotation >= 0.0) {
+            leftMotorOutput = maxInput;
+            rightMotorOutput = speed - rotation;
+        } else {
+            leftMotorOutput = speed + rotation;
+            rightMotorOutput = maxInput;
+        }
+    } else {
+        // Third quadrant, else fourth quadrant
+        if (rotation >= 0.0) {
+            leftMotorOutput = speed + rotation;
+            rightMotorOutput = maxInput;
+        } else {
+            leftMotorOutput = maxInput;
+            rightMotorOutput = speed - rotation;
+        }
+    }
+
+    leftMotorOutput = clamp(leftMotorOutput) * maxOutput::value;
+    rightMotorOutput = -clamp(rightMotorOutput) * maxOutput::value;
+
+    static_cast<Derived*>(this)->setLeftOutput(leftMotorOutput);
+    static_cast<Derived*>(this)->setRightOutput(rightMotorOutput);
+}
+
+template<typename Derived>
+void DifferentialDriveLite<Derived>::curvatureDrive(double fwdSpeed, double rotation, bool isQuickTurn) {
+
+}
+
+//template<typename Derived>
+//void DifferentialDriveLite<Derived>::setLeftOutput(double output) {
+//
+//}
+//
+//template<typename Derived>
+//void DifferentialDriveLite<Derived>::setRightOutput(double output) {
+//
+//}
+
+
 Chassis &Chassis::getInstance() {
     static Chassis instance;
     return instance;
@@ -141,4 +199,12 @@ void Chassis::curvatureDrive(double speed, double rotation, bool isQuickTurn) {
     rightMotors->Set(rightMotorOutput);
 
 
+}
+
+void MyDifferentialDrive::setLeftOutput(double output) {
+ left.Set(ControlMode::PercentOutput,output);
+}
+
+void MyDifferentialDrive::setRightOutput(double output) {
+right.Set(ControlMode::PercentOutput,output);
 }
