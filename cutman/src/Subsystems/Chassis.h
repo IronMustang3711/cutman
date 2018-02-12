@@ -6,19 +6,6 @@
 #include <WPILib.h>
 #include <ctre/Phoenix.h>
 
-namespace drive_train {
-    template<typename T>
-    constexpr double maxOutput = 1.0;
-
-    template<typename T>
-    constexpr double quickStopThreshold = 0.2;
-
-    template<typename T>
-    constexpr double quickStopAlpha = 0.1;
-
-    template<typename T>
-    constexpr double quickStopAccumulator = 0.0;
-}
 
 template<typename Derived>
 class DifferentialDriveLite {
@@ -31,30 +18,45 @@ protected:
     //void setLeftOutput(double output);
     //void setRightOutput(double output);
 
+    static constexpr double kDefaultQuickStopThreshold = 0.2;
+    static constexpr double kDefaultQuickStopAlpha = 0.1;
 
-    static constexpr auto maxOut = drive_train::maxOutput<Derived>;
-    static constexpr auto quickStopThreshold = drive_train::quickStopThreshold<Derived>;
-    static constexpr auto quickStopAlpha = drive_train::quickStopAlpha<Derived>;
-    static constexpr auto quickStopAccumulator = drive_train::quickStopAccumulator<Derived>;
+    double maxOutput = 1.0;
+    double quickStopThreshold = kDefaultQuickStopThreshold;
+    double quickStopAlpha = kDefaultQuickStopAlpha;
+    double quickStopAccumulator = 0.0;
 
 };
 
-class MyDifferentialDrive;
-namespace drive_train {
-    template<>
-    constexpr double maxOutput<MyDifferentialDrive> = 0.8;
-}
 
-class MyDifferentialDrive : public DifferentialDriveLite<MyDifferentialDrive> {
-    TalonSRX left{1};
-    TalonSRX right{3};
+class TalonSRXDifferentialDrive : public DifferentialDriveLite<TalonSRXDifferentialDrive> {
 
+public:
+    TalonSRXDifferentialDrive(TalonSRX &l, TalonSRX &r);
+
+protected:
     void setLeftOutput(double output);
 
     void setRightOutput(double output);
 
-    static_assert(maxOut == 0.8, "max out");
+private:
+    TalonSRX &left;
+    TalonSRX &right;
 
+};
+
+class WPIDifferentialDrive : public DifferentialDriveLite<WPIDifferentialDrive> {
+public:
+    WPIDifferentialDrive(SpeedController &l, SpeedController &r);
+
+protected:
+    void setLeftOutput(double output);
+
+    void setRightOutput(double output);
+
+private:
+    frc::SpeedController &left;
+    frc::SpeedController &right;
 };
 
 
@@ -66,8 +68,6 @@ public:
 
     void curvatureDrive(double fwdSpeed, double rotation, bool isQuickTurn);
 
-    static constexpr double kDefaultQuickStopThreshold = 0.2;
-    static constexpr double kDefaultQuickStopAlpha = 0.1;
 
 private:
     Chassis();
@@ -85,11 +85,6 @@ private:
     SpeedController *leftMotors;
     SpeedController *rightMotors;
 
-
-    double maxOutput = 1.0;
-    double quickStopThreshold = kDefaultQuickStopThreshold;
-    double quickStopAlpha = kDefaultQuickStopAlpha;
-    double quickStopAccumulator = 0.0;
 
 };
 
