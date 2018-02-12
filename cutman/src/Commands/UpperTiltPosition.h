@@ -34,7 +34,7 @@ private:
     double acceleration = 600;  // accel to 300 counts/sec in one second
     double deceleration = 600;
     double PIDband = 15;  // switch to PID when within this band.
-    bool velocityControl=0;  // velocity or PID distance control
+    bool velocityControl=false;  // velocity or PID distance control
 };
 
 

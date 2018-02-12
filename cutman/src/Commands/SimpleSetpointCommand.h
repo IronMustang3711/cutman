@@ -19,13 +19,13 @@ protected:
 	//	  void _End() override;
 	//	  void _Execute() override;
 
-	virtual void Initialize();
+	void Initialize() override;
 
-	virtual void Execute();
+	void Execute() override;
 
-	virtual bool IsFinished();
+	bool IsFinished() override;
 
-	virtual void End();
+	void End() override;
 
 protected:
 	frc::PIDController* controller;
