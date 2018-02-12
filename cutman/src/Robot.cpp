@@ -14,7 +14,9 @@ struct Robot : TimedRobot {
 	RobotMap robotMap;
 
     Bucket bucket{robotMap.bucketMotor,robotMap.bucketEncoder};
-	Chassis chassis{robotMap.differentialDrive};
+
+    Chassis& chassis = Chassis::getInstance();
+
     Clamp clamp{robotMap.clampMotor,robotMap.clampEncoder};
     ClampTilt clampTilt{robotMap.clampTiltMotor,robotMap.clampTiltEncoder};
     UpperTilt upperTilt{robotMap.upperTiltMotor,robotMap.upperTiltEncoder};

@@ -25,15 +25,15 @@ struct RobotMap {
     Encoder clampTiltEncoder{4,5,false,Encoder::k4X};
     Encoder clampEncoder{6,7,false,Encoder::k4X};
 
-    WPI_TalonSRX leftFront{1};
-    WPI_TalonSRX leftRear{2};
-    WPI_TalonSRX rightFront{3};
-    WPI_TalonSRX rightRear{4};
-
-    SpeedControllerGroup leftMotors{leftFront,leftRear};
-    SpeedControllerGroup rightMotors{rightFront,rightRear};
-
-    DifferentialDrive differentialDrive{leftMotors,rightMotors};
+//    WPI_TalonSRX leftPrimary{1};
+//    WPI_TalonSRX leftRear{2};
+//    WPI_TalonSRX rightFront{3};
+//    WPI_TalonSRX rightRear{4};
+//
+//    SpeedControllerGroup leftMotors{leftPrimary,leftRear};
+//    SpeedControllerGroup rightMotors{rightFront,rightRear};
+//
+//    DifferentialDrive differentialDrive{leftMotors,rightMotors};
 
     PowerDistributionPanel powerDistributionPanel{};
 
@@ -64,18 +64,18 @@ struct RobotMap {
         clampEncoder.SetPIDSourceType(PIDSourceType::kDisplacement);
 
 
-        leftFront.SetName("left front");
-        leftRear.SetName("left rear");
-        leftMotors.SetName("left drive motors");
-
-        rightFront.SetName("right front");
-        rightRear.SetName("right rear");
-        rightMotors.SetName("right drive motors");
-
-        differentialDrive.SetName("differential drive");
-        differentialDrive.SetSafetyEnabled(true);
-        differentialDrive.SetExpiration(0.5);
-        differentialDrive.SetMaxOutput(1.0);
+//        leftPrimary.SetName("left front");
+//        leftRear.SetName("left rear");
+//        leftMotors.SetName("left drive motors");
+//
+//        rightFront.SetName("right front");
+//        rightRear.SetName("right rear");
+//        rightMotors.SetName("right drive motors");
+//
+//        differentialDrive.SetName("differential drive");
+//        differentialDrive.SetSafetyEnabled(true);
+//        differentialDrive.SetExpiration(0.5);
+//        differentialDrive.SetMaxOutput(1.0);
 
         powerDistributionPanel.SetName("power distribution panel");
 
