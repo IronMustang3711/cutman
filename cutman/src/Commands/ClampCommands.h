@@ -4,7 +4,7 @@
  *  Created on: Feb 11, 2018
  *      Author: jason
  */
-#pragma once;
+#pragma once
 
 #include "SimpleSetpointCommand.h"
 
