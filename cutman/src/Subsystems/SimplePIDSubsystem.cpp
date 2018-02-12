@@ -23,7 +23,8 @@ SimplePIDSubsystem::SimplePIDSubsystem(const llvm::Twine &name, double p, double
     AddChild(dynamic_cast<Sendable&>(motor));
     AddChild(dynamic_cast<Sendable&>(encoder));
 
-    AddChild(GetPIDController());
+    //Already done in PIDSubsystem:
+   // AddChild(GetPIDController());
 
 }
 
