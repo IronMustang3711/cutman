@@ -28,18 +28,21 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${LINKER_FLAGS}")
 get_filename_component(PROJECT_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 project(${PROJECT_NAME})
 
+if(WIN32 AND NOT DEFINED ENV{HOME})
+    set(ENV{HOME} "%HOMEDRIVE%%HOMEPATH%")
+    #set(WPI_DIR "/Users/jason/wpilib")
+endif()
+
+set(WPI_DIR "$ENV{HOME}/wpilib")
 
 
-#set(WPI_DIR "$ENV{HOME}/wpilib")
-set(WPI_DIR "/Users/jason/wpilib")
-
-include_directories(
+include_directories(SYSTEM
         "${WPI_DIR}/cpp/current/include"
         "${WPI_DIR}/user/cpp/include")
 
 
   link_directories(
-	"${WPI_DIR}/common/current/lib/linux/athena/shared"
+	    "${WPI_DIR}/common/current/lib/linux/athena/shared"
         "${WPI_DIR}/cpp/current/reflib/linux/athena/shared"
         "${WPI_DIR}/user/cpp/lib")
 
