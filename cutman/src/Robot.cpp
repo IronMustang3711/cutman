@@ -1,6 +1,7 @@
 
 
 #include <WPILib.h>
+#include <iostream>
 #include "RobotMap.h"
 #include "Subsystems/Bucket.h"
 #include "Subsystems/Chassis.h"
@@ -8,6 +9,7 @@
 #include "Subsystems/ClampTilt.h"
 #include "Subsystems/UpperTilt.h"
 #include "Subsystems/Winch.h"
+#include "OI.h"
 
 struct Robot : TimedRobot {
 
@@ -22,7 +24,21 @@ struct Robot : TimedRobot {
     UpperTilt upperTilt{robotMap.upperTiltMotor,robotMap.upperTiltEncoder};
     Winch winch{robotMap.winch};
 
+	Stick joy;
+
     Robot(){
+        joy.button(0).on(ButtonState::PRESSED,[this](const Stick* s){
+            something();
+        });
+
+        joy.buttons[1].on<DOWN_STATES>([](const Stick* s){
+            std::cout << "down" <<std::endl;
+        });
+
+    }
+
+    void something(){
+        llvm::outs() << __FUNCTION__ << "\n";
     }
 
 	void RobotInit() override {}
